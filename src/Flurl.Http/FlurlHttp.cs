@@ -34,7 +34,7 @@ namespace Flurl.Http
 		/// </summary>
 		/// <param name="url">the URL used to find the IFlurlClient.</param>
 		/// <param name="configAction">the action to perform against the IFlurlClient.</param>
-		public static void ConfigureClient(string url, Action<IFlurlClient> configAction) => 
+		public static void ConfigureClient(string url, Action<IFlurlClient> configAction) =>
 			GlobalSettings.FlurlClientFactory.ConfigureClient(url, configAction);
 	}
 }

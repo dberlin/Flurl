@@ -14,7 +14,7 @@ namespace Flurl.Http
 		/// </summary>
 		Strict,
 		/// <summary>
-		/// Indicates a browser should send cookie for cross-site requests only with top-level navigation. 
+		/// Indicates a browser should send cookie for cross-site requests only with top-level navigation.
 		/// </summary>
 		Lax,
 		/// <summary>

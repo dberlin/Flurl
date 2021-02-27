@@ -153,7 +153,7 @@ namespace Flurl.Http
 			_serializer = call.Request.Settings.JsonSerializer;
 			using (var stream = await ResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false)) {
 				try {
-					_capturedBody = _serializer.Deserialize<T>(stream);
+					_capturedBody = _serializer.Deserialize<T>(new StreamReader(stream).ReadToEnd());
 					_streamRead = true;
 					return (T)_capturedBody;
 				}

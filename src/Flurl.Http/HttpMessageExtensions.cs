@@ -13,7 +13,7 @@ namespace Flurl.Http
 	{
 		/// <summary>
 		/// Set a header on this HttpRequestMessage (default), or its Content property if it's a known content-level header.
-		/// No validation. Overwrites any existing value(s) for the header. 
+		/// No validation. Overwrites any existing value(s) for the header.
 		/// </summary>
 		/// <param name="request">The HttpRequestMessage.</param>
 		/// <param name="name">The header name.</param>
@@ -25,7 +25,7 @@ namespace Flurl.Http
 
 		/// <summary>
 		/// Set a header on this HttpResponseMessage (default), or its Content property if it's a known content-level header.
-		/// No validation. Overwrites any existing value(s) for the header. 
+		/// No validation. Overwrites any existing value(s) for the header.
 		/// </summary>
 		/// <param name="response">The HttpResponseMessage.</param>
 		/// <param name="name">The header name.</param>

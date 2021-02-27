@@ -1,12 +1,12 @@
 ﻿using System;
-using System.IO;
+using Crestron.SimplSharp.CrestronIO;
 using Flurl.Util;
 
 namespace Flurl.Http.Configuration
 {
 	/// <summary>
 	/// ISerializer implementation that converts an object representing name/value pairs to a URL-encoded string.
-	/// Default serializer used in calls to PostUrlEncodedAsync, etc. 
+	/// Default serializer used in calls to PostUrlEncodedAsync, etc.
 	/// </summary>
 	public class DefaultUrlEncodedSerializer : ISerializer
 	{

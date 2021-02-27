@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-
 namespace Flurl.Http
 {
 	internal static class FileUtil

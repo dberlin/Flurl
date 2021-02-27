@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Crestron.SimplSharp.CrestronIO;
 using System.Text;
 
 namespace Flurl.Http.Configuration

@@ -50,7 +50,7 @@ namespace Flurl.Http
 		/// Exception that occurred while sending the HttpRequestMessage.
 		/// </summary>
 		public Exception Exception { get; set; }
-	
+
 		/// <summary>
 		/// User code should set this to true inside global event handlers (OnError, etc) to indicate
 		/// that the exception was handled and should not be propagated further.

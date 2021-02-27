@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Crestron.SimplSharp;
 using Flurl.Http.Configuration;
 using Flurl.Util;
 
@@ -106,7 +107,7 @@ namespace Flurl.Http
 
 		/// <inheritdoc />
 		public IFlurlClient Client {
-			get => 
+			get =>
 				(_client != null) ? _client :
 				(Url != null) ? FlurlHttp.GlobalSettings.FlurlClientFactory.Get(Url) :
 				null;
@@ -158,7 +159,6 @@ namespace Flurl.Http
 		public async Task<IFlurlResponse> SendAsync(HttpMethod verb, HttpContent content = null, CancellationToken cancellationToken = default, HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead) {
 			_client = Client; // "freeze" the client at this point to avoid excessive calls to FlurlClientFactory.Get (#374)
 			Verb = verb;
-
 			var request = new HttpRequestMessage(verb, Url) { Content = content };
 			SyncHeaders(request);
 			var call = new FlurlCall {
@@ -178,7 +178,6 @@ namespace Flurl.Http
 			var ct = GetCancellationTokenWithTimeout(cancellationToken, out var cts);
 
 			try {
-
 				var response = await Client.HttpClient.SendAsync(request, completionOption, ct).ConfigureAwait(false);
 				call.HttpResponseMessage = response;
 				call.HttpResponseMessage.RequestMessage = request;
@@ -311,8 +310,10 @@ namespace Flurl.Http
 					case 301:
 					case 302:
 						return verb == HttpMethod.Post;
+
 					case 303:
 						return true;
+
 					default: // 307 & 308 mainly
 						return false;
 				}

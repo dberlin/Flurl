@@ -20,7 +20,7 @@ namespace Flurl.Http.Configuration
 		HttpClient CreateHttpClient(HttpMessageHandler handler);
 
 		/// <summary>
-		/// Defines how the 
+		/// Defines how the
 		/// </summary>
 		/// <returns></returns>
 		HttpMessageHandler CreateMessageHandler();

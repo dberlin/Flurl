@@ -55,7 +55,7 @@ namespace Flurl.Http.Testing
 		}
 
 		/// <summary>
-		/// Fluently creates and returns a new request-specific test setup. 
+		/// Fluently creates and returns a new request-specific test setup.
 		/// </summary>
 		public FilteredHttpTestSetup ForCallsTo(params string[] urlPatterns) {
 			var setup = new FilteredHttpTestSetup(Settings, urlPatterns);
