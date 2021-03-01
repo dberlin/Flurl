@@ -10,7 +10,7 @@ namespace Flurl.Http.Configuration
 	/// ISerializer implementation that uses Newtonsoft Json.NET.
 	/// Default serializer used in calls to GetJsonAsync, PostJsonAsync, etc.
 	/// </summary>
-	internal class NewtonsoftJsonSerializer : ISerializer
+	public class NewtonsoftJsonSerializer : ISerializer
 	{
 		private readonly JsonSerializerSettings _settings;
 
