@@ -146,12 +146,14 @@ namespace Flurl.Http
 			get => _jar;
 			set {
 				_jar = value;
-				this.WithCookies(
-					from c in CookieJar
-					where c.ShouldSendTo(this.Url, out _)
-					// sort by longest path, then earliest creation time, per #2: https://tools.ietf.org/html/rfc6265#section-5.4
-					orderby (c.Path ?? c.OriginUrl.Path).Length descending, c.DateReceived
-					select (c.Name, c.Value));
+				if (_jar != null) {
+					this.WithCookies(
+						from c in CookieJar
+						where c.ShouldSendTo(this.Url, out _)
+						// sort by longest path, then earliest creation time, per #2: https://tools.ietf.org/html/rfc6265#section-5.4
+						orderby (c.Path ?? c.OriginUrl.Path).Length descending, c.DateReceived
+						select (c.Name, c.Value));
+				}
 			}
 		}
 
@@ -243,28 +245,29 @@ namespace Flurl.Http
 
 			CheckForCircularRedirects(call);
 
-			var redir = new FlurlRequest(call.Redirect.Url);
-			redir.Client = Client;
-			redir._redirectedFrom = call;
-			redir.Settings.Defaults = Settings;
-			redir.WithHeaders(this.Headers);
-			if (CookieJar != null) {
-				redir.WithCookies(CookieJar);
-			}
+			var redir = new FlurlRequest(call.Redirect.Url) {
+				Client = Client,
+				_redirectedFrom = call,
+				Settings = { Defaults = Settings }
+			};
+
+			if (CookieJar != null)
+				redir.CookieJar = CookieJar;
 
 			var changeToGet = call.Redirect.ChangeVerbToGet;
 
-			if (!Settings.Redirects.ForwardAuthorizationHeader)
-				redir.Headers.Remove("Authorization");
-			if (changeToGet)
-				redir.Headers.Remove("Transfer-Encoding");
+			redir.WithHeaders(Headers.Where(h =>
+				h.Name.OrdinalEquals("Cookie", true) ? false : // never blindly forward Cookie header; CookieJar should be used to ensure rules are enforced
+				h.Name.OrdinalEquals("Authorization", true) ? Settings.Redirects.ForwardAuthorizationHeader :
+				h.Name.OrdinalEquals("Transfer-Encoding", true) ? Settings.Redirects.ForwardHeaders && !changeToGet :
+				Settings.Redirects.ForwardHeaders));
 
 			var ct = GetCancellationTokenWithTimeout(cancellationToken, out var cts);
 			try {
 				return await redir.SendAsync(
 					changeToGet ? HttpMethod.Get : call.HttpRequestMessage.Method,
 					changeToGet ? null : call.HttpRequestMessage.Content,
-					cancellationToken,
+					ct,
 					completionOption).ConfigureAwait(false);
 			}
 			finally {
