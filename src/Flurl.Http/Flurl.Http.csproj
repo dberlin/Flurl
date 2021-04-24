@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>Flurl.Http</PackageId>
     <Version>3.0.1</Version>
@@ -15,6 +14,7 @@
     <PackageTags>rest http httpclient json url uri tdd</PackageTags>
     <PackageReleaseNotes>https://github.com/tmenier/Flurl/releases</PackageReleaseNotes>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,10 +32,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Crestron.SimplSharp.SDK.Library" Version="2.14.155" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Flurl" Version="3.0.1" />
-    <None Include="..\..\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -48,5 +48,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flurl\Flurl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SimplSharpHelperInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b" Condition="'$(TargetFramework)' == 'net461'">
+      <HintPath>..\..\..\..\..\..\..\..\.nuget\packages\crestron.simplsharp.sdk.library\2.14.154\lib\net47\SimplSharpHelperInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="SimplSharpNewtonsoft, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b" Condition="'$(TargetFramework)' == 'net461'">
+      <HintPath>..\..\..\..\..\..\..\..\.nuget\packages\crestron.simplsharp.sdk.library\2.14.154\lib\net47\SimplSharpNewtonsoft.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 </Project>
