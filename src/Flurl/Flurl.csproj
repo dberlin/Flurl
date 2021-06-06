@@ -2,7 +2,7 @@
   <PropertyGroup>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>Flurl</PackageId>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>Todd Menier</Authors>
     <Description>A fluent, portable URL builder. To make HTTP calls off the fluent chain, check out Flurl.Http.</Description>
     <PackageProjectUrl>https://flurl.dev</PackageProjectUrl>
@@ -13,7 +13,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>fluent url uri querystring builder</PackageTags>
     <PackageReleaseNotes>https://github.com/tmenier/Flurl/releases</PackageReleaseNotes>
-	  <IncludeProjectPriFile>false</IncludeProjectPriFile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
 	  <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
@@ -35,7 +35,7 @@
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 

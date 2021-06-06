@@ -210,7 +210,7 @@ namespace Flurl.Http
 
 			// copy headers from FlurlRequest to HttpRequestMessage
 			foreach (var header in Headers)
-				request.SetHeader(header.Name, header.Value);
+				request.SetHeader(header.Name, header.Value, false);
 
 			// copy headers from HttpContent to FlurlRequest
 			if (request.Content != null) {
@@ -287,6 +287,8 @@ namespace Flurl.Http
 
 			if (Url.IsValid(location))
 				redir.Url = new Url(location);
+			else if (location.OrdinalStartsWith("//"))
+				redir.Url = new Url(this.Url.Scheme + ":" + location);
 			else if (location.OrdinalStartsWith("/"))
 				redir.Url = Url.Combine(this.Url.Root, location);
 			else
